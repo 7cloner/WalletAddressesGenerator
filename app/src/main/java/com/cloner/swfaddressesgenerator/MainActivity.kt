@@ -1,6 +1,7 @@
 package com.cloner.swfaddressesgenerator
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import com.cloner.walletaddressesgenerator.SWFBitcoinAddressesGenerator
 import com.cloner.walletaddressesgenerator.SWFTonAddressesGenerator
@@ -14,43 +15,44 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         val words = listOf(
-            "knee", "utility", "still", "gorilla", "luxury", "milk",
-            "response", "solve", "level", "enhance", "layer", "jeans",
-            "cherry", "swift", "mother", "push", "situate", "menu",
-            "negative", "dumb", "hundred", "outdoor", "foam", "evoke"
+            "abandon", "abandon", "abandon", "abandon", "abandon", "abandon",
+            "abandon", "abandon", "abandon", "abandon", "abandon", "about"
         )
 
 
         CoroutineScope(Dispatchers.IO).launch {
             //ton addresses
-            val add = SWFTonAddressesGenerator.generateAddresses(
+            SWFTonAddressesGenerator.generateAddresses(
                 seeds = words
-            ).toMutableList()
+            ).forEach {
+                Log.e("Address :", it)
+            }
 
             //TrustWallet
             val address = SWFTrustWalletAddressesGenerator.generateAddress(
-                coin = "TON",
+                coin = "BITCOIN",
                 seeds = words
             )
             if(address != null) {
-                add.add(address)
+                Log.e("Address :", address)
             }
 
             //bitcoin
-            add.addAll(
-                SWFBitcoinAddressesGenerator.generateAddresses(
-                    seeds = words,
-                    bip = BitcoinImprovementProposals.P2PKH,
-                    startAccountPosition = 0,
-                    endAccountPosition = 2,
-                    startChainPosition = 0,
-                    endChainPosition = 15,
-                    startAddressIndex = 0,
-                    endAddressIndex = 20
-                )
-            )
+            SWFBitcoinAddressesGenerator.generateAddresses(
+                seeds = words,
+                passphrase = "",
+                bip = BitcoinImprovementProposals.SegWit,
+                startAccountPosition = 0,
+                endAccountPosition = 0,
+                startChainPosition = 0,
+                endChainPosition = 0,
+                startAddressIndex = 0,
+                endAddressIndex = 19,
+                isTestNet = false
+            ).collect {
+                Log.e("Address :", it)
+            }
         }
     }
 }
