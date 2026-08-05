@@ -25,17 +25,16 @@ class MainActivity : ComponentActivity() {
             //ton addresses
             SWFTonAddressesGenerator.generateAddresses(
                 seeds = words
-            ).forEach {
+            ).collect {
                 Log.e("Address :", it)
             }
 
             //TrustWallet
-            val address = SWFTrustWalletAddressesGenerator.generateAddress(
-                coin = "BITCOIN",
-                seeds = words
-            )
-            if(address != null) {
-                Log.e("Address :", address)
+            SWFTrustWalletAddressesGenerator.generateAddress(
+                coins = listOf("BITCOIN"),
+                seed = words
+            ).collect {
+                Log.e("Address :", it)
             }
 
             //bitcoin

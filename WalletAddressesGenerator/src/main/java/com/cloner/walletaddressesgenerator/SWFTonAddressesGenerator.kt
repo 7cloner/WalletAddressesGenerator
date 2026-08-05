@@ -5,6 +5,8 @@ import com.cloner.tonaddressgenerator.TonKeeperV2AddressGenerator
 import com.cloner.tonaddressgenerator.TonKeeperV3AddressGenerator
 import com.cloner.tonaddressgenerator.TonKeeperV4AddressGenerator
 import com.cloner.tonaddressgenerator.TonKeeperV5AddressGenerator
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 object SWFTonAddressesGenerator {
 
@@ -12,31 +14,36 @@ object SWFTonAddressesGenerator {
         "V1R1", "V1R2", "V1R3", "V2R1", "V2R2", "V3R1", "V3R2",
         "V4R1", "V4R2", "V5R1", "V5BETA"
     )
-    private val v1Generator = TonKeeperV1AddressGenerator()
-    private val v2Generator = TonKeeperV2AddressGenerator()
-    private val v3Generator = TonKeeperV3AddressGenerator()
-    private val v4Generator = TonKeeperV4AddressGenerator()
-    private val v5Generator = TonKeeperV5AddressGenerator()
+
+    private val v1Generator by lazy { TonKeeperV1AddressGenerator() }
+    private val v2Generator by lazy { TonKeeperV2AddressGenerator() }
+    private val v3Generator by lazy { TonKeeperV3AddressGenerator() }
+    private val v4Generator by lazy { TonKeeperV4AddressGenerator() }
+    private val v5Generator by lazy { TonKeeperV5AddressGenerator() }
 
     fun generateAddresses(
         seeds: List<String>,
         algorithms: List<String> = emptyList(),
         testnet: Boolean = false
-    ): List<String> {
-        val addresses: MutableList<String> = ArrayList()
+    ): Flow<String> = flow {
+        if (seeds.isEmpty()) return@flow
 
-        algorithms.ifEmpty { allAlgorithms }.forEach { algorithm ->
+        val targetAlgorithms = algorithms.ifEmpty { allAlgorithms }
+        val size = targetAlgorithms.size
+
+        for (i in 0 until size) {
+            val algorithm = targetAlgorithms[i]
             val address = generateAddress(
                 seeds = seeds,
-                algorithm = algorithm.uppercase(),
+                algorithm = algorithm,
                 testnet = testnet
             )
-            if(address != null){
-                addresses.add(address)
+            if (!address.isNullOrEmpty()) {
+                emit(address)
+            }else {
+                break
             }
         }
-
-        return addresses
     }
 
     private fun generateAddress(
