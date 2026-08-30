@@ -46,7 +46,7 @@ object SWFTonAddressesGenerator {
         }
     }
 
-    private fun generateAddress(
+    fun generateAddress(
         seeds: List<String>,
         algorithm: String,
         testnet: Boolean

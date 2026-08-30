@@ -49,6 +49,8 @@ object SWFTrustWalletAddressesGenerator {
         "SONIC" to 10000146
     ).mapValues { (_, value) -> CoinType.createFromValue(value) }
 
+    fun isValid(seed: List<String>): Boolean = Mnemonic.isValid(seed.joinToString(" "))
+
     fun generateAddress(
         coins: List<String>,
         seed: List<String>,
