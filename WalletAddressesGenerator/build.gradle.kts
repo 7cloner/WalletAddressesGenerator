@@ -45,7 +45,7 @@ afterEvaluate {
             register<MavenPublication>("release") {
                 groupId = "com.smartwalletsfinder"
                 artifactId = "WalletAddressesGenerator"
-                version = "1.0.0004"
+                version = "1.0.0005"
                 from(components["release"])
                 pom {
                     name.set("WalletAddressesGenerator")
@@ -88,7 +88,7 @@ signing {
 
 dependencies {
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.tonaddressgenerator)
+    api(libs.tonaddressgenerator)
     implementation(libs.wallet.core)
     implementation(libs.bitcoinj.core)
 }

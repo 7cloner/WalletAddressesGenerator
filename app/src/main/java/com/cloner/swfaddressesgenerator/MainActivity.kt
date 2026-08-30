@@ -15,10 +15,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val words = listOf(
-            "abandon", "abandon", "abandon", "abandon", "abandon", "abandon",
-            "abandon", "abandon", "abandon", "abandon", "abandon", "about"
-        )
+        val words =
+            "chair cup solar fiscal apart whisper mouse fitness access obscure lounge apology sight lunch shine because senior cycle buddy card same tragic question eight".split(
+                " "
+            ).toList()
 
 
         CoroutineScope(Dispatchers.IO).launch {
