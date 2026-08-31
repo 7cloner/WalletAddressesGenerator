@@ -45,7 +45,7 @@ afterEvaluate {
             register<MavenPublication>("release") {
                 groupId = "com.smartwalletsfinder"
                 artifactId = "WalletAddressesGenerator"
-                version = "1.0.0005"
+                version = "1.0.0006"
                 from(components["release"])
                 pom {
                     name.set("WalletAddressesGenerator")

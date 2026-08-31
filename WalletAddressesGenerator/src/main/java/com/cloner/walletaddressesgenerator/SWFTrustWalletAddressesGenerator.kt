@@ -1,5 +1,6 @@
 package com.cloner.walletaddressesgenerator
 
+import com.cloner.walletaddressesgenerator.models.SWFTrustWalletGeneration
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import wallet.core.jni.CoinType
@@ -55,7 +56,7 @@ object SWFTrustWalletAddressesGenerator {
         coins: List<String>,
         seed: List<String>,
         passphrase: String = ""
-    ): Flow<String> = flow {
+    ): Flow<SWFTrustWalletGeneration> = flow {
         if (coins.isEmpty() || seed.isEmpty()) return@flow
 
         val mnemonic = seed.joinToString(separator = " ")
@@ -74,7 +75,7 @@ object SWFTrustWalletAddressesGenerator {
             if (coinType != null) {
                 val address = wallet.getAddressForCoin(coinType)
                 if (address.isNotEmpty()) {
-                    emit(address)
+                    emit(SWFTrustWalletGeneration(address, coin))
                 }
             }
         }
