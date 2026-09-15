@@ -1,14 +1,15 @@
 [versions]
-agp = "9.3.2"
+agp = "9.4.0"
 coreKtx = "1.19.0"
 lifecycleRuntimeKtx = "2.11.0"
 activityCompose = "1.13.0"
-kotlin = "2.4.10"
-composeBom = "2026.08.00"
+kotlin = "2.4.20"
+composeBom = "2026.09.00"
 kotlinxCoroutinesAndroid = "1.11.0"
 bitcoinjCoreVersion = "0.17.1"
-tonaddressgenerator = "1.0.0001"
-walletCore = "4.7.0"
+tonaddressgenerator = "1.0.0003"
+walletCore = "4.8.2"
+swfmetamaskaddressesgenerator = "1.0.0002"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -23,6 +24,7 @@ kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 tonaddressgenerator = { group = "com.smartwalletsfinder", name = "TonAddressGenerator", version.ref = "tonaddressgenerator" }
 wallet-core = { module = "com.trustwallet:wallet-core", version.ref = "walletCore" }
 bitcoinj-core = { module = "org.bitcoinj:bitcoinj-core", version.ref = "bitcoinjCoreVersion" }
+swfmetamaskaddressesgenerator = { group = "com.smartwalletsfinder", name = "SWFMetaMaskAddressesGenerator", version.ref = "swfmetamaskaddressesgenerator" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
