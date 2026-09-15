@@ -49,7 +49,7 @@ afterEvaluate {
                 from(components["release"])
                 pom {
                     name.set("WalletAddressesGenerator")
-                    description.set("a comprehensive library for generating Wallet addresses based on TonKeeper, TrustWallet and BitCoin standards.")
+                    description.set("a comprehensive library for generating Wallet addresses based on TonKeeper, MetaMask, TrustWallet and BitCoin standards.")
                     url.set("https://www.smartwalletsfinder.com")
 
                     licenses {
